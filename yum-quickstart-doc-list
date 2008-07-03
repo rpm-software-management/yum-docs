@@ -1,0 +1,60 @@
+Quick list of simple-start docs for folks using yum/createrepo/yum-utils/etc
+
+1. how to make a repository
+	createrepo
+	createrepo -d
+	createrepo --update -d
+	createrepo --update --skip-stat -d
+	
+2. What is comps and how do I make groups and use them?
+	describe comps format and how it is used
+	comps-create
+	createrepo -g
+	comps-merge
+	
+3. basic yum commands - getting started 
+	yum list
+	yum list available
+	yum list installed
+	yum list extras
+	yum install/remove/update
+	yum check-update (and the return code)
+	yum grouplist
+	yum groupinfo
+	yum info
+	yum list/info pkgname/pkgglob
+	yum search
+	yum shell < -- maybe break this one out into its own little doc
+	yum makecache
+	yum clean
+	yum groupinstall/remove/etc
+4. managing your own repositories:
+	- repomanage - pruning repositories of old cruft
+	- reposync - syncing down pkgs from other repos
+	- good repo practices
+		- dir structure
+		- hardlinking
+	- verifying a repository is correct: verify-tree.py
+	- checking package gpg keys: rpm -K -v
+5. interesting rpm commands:
+	- rpm -qa --last
+	- rpm -qa --qf "%{size} %{name}.%{arch}\n" | sort -rn | less
+	- rpm --eval
+	- rpm --showrc
+ 
+
+6. yum-utils/plugins uses:
+	- package-cleanup --leaves/--orphans
+	- package-cleanup --problems
+	- package-cleanup --oldkernels
+	- repotrack
+	- repodiff - see the changes
+	- repoquery
+	- yum-debug-dump
+	- yum-complete-transaction
+	- yumdownloader
+	- yum aliases plugin
+	- yum-filter-data plugin
+	- yum-verify plugin
+	- yum-changelog
+	
