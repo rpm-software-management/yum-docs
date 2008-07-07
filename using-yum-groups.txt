@@ -1,0 +1,77 @@
+Yum groups and repositories.
+
+This doc will cover two items:
+
+1. How to use yum to list/install/remove/update groups of packages
+2. How to make your own group list and insert them into your repository.
+
+
+Yum supports the group commands:
+   - grouplist
+   - groupinfo
+   - groupinstall
+   - groupremove
+   - groupupdate
+
+Groups are read from the "group" xml data that is optionally available from
+each repository. If yum has no repositories which support groups then none of 
+the group operations will work. 
+
+
+ - grouplist
+   yum grouplist [hidden]
+   
+   This will list the installed and available groups for your system in two
+   separate lists. If you pass the optional 'hidden' argument then all of 
+   the groups which are set to 'no' in the group xml <uservisible> tag.
+
+- groupinfo
+  yum groupinfo groupname
+  
+  This will give you detailed information for each group including:
+  description, mandatory, default and optional packages.
+
+- groupinstall, groupupdate
+  yum groupinstall groupname
+  yum groupupdate groupname
+
+  Despite their differing names both of these commands perform the same
+  function. They will attempt to install/update all of the packages in the
+  group that are of the types 'default' or 'mandatory' (by default).
+  (To change this types of packages edit the value of the group_package_types 
+  option in yum.conf.) And they will install any additional dependencies 
+  needed by any of the installing/updating packages.
+
+- groupremove
+  yum groupremove groupname
+  
+  This will remove all packages, of any type, in the named group. It will also
+  remove any package that depends on any of these packages.
+   
+
+
+Setting up your own groups in your own repository:
+
+This process is pretty easy, just two steps:
+ 1. create a file in the groups format used by yum
+ 2. tell createrepo to include that group file in your repository.
+
+
+Step 1:
+  You can either open a text editor and create the xml file matching or you
+  can run the groups-create command from yum-utils. An example file is 
+  available here: fill-in-example-url
+  Run the groups-create command like this:
+    groups-create --outfile=mygroups.xml
+  Follow the prompts then you'll have a functional groups file for yum in
+  mygroups.xml
+
+Step 2:
+  To include this in a repository, just tell createrepo to use it when [re]making
+  your repository.
+
+  createrepo -g /path/to/mygroups.xml /srv/my/repo
+
+
+
+
