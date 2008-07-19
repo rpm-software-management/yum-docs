@@ -36,6 +36,7 @@ Quick list of simple-start docs for folks using yum/createrepo/yum-utils/etc
 		- hardlinking
 	- verifying a repository is correct: verify-tree.py
 	- checking package gpg keys: rpm -K -v
+
 5. interesting rpm commands:
 	- rpm -qa --last
 	- rpm -qa --qf "%{size} %{name}.%{arch}\n" | sort -rn | less

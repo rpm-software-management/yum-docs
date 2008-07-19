@@ -1,0 +1,85 @@
+Useful (and lesser-known) rpm commands:
+
+
+This is just a short list of useful and not-terribly-well-known commands
+you can run with the rpm command line. If you can think of more to add that
+you've used, please feel free to email us to include them.
+
+
+1. rpm -qa --last 
+   This command outputs all installed packages and their installation time in 
+   reverse order. So, the most recently installed package will be listed first. 
+
+Example:
+$ rpm -qa --last | head -14
+gnome-python2-gtkhtml2-2.19.1-16.fc9          Thu 17 Jul 2008 11:40:44 PM EDT
+gnome-python2-libegg-2.19.1-16.fc9            Thu 17 Jul 2008 11:40:43 PM EDT
+gnome-python2-gtkmozembed-2.19.1-16.fc9       Thu 17 Jul 2008 11:40:43 PM EDT
+gnome-python2-extras-2.19.1-16.fc9            Thu 17 Jul 2008 11:40:42 PM EDT
+kernel-2.6.25.11-93.fc9                       Thu 17 Jul 2008 04:01:13 PM EDT
+hugin-0.7.0-0.3.20080528svn.fc9               Tue 15 Jul 2008 11:24:37 PM EDT
+hugin-base-0.7.0-0.3.20080528svn.fc9          Tue 15 Jul 2008 11:24:35 PM EDT
+enblend-3.1-0.5.20080529cvs.fc9               Tue 15 Jul 2008 11:24:34 PM EDT
+perl-Image-ExifTool-7.25-2.fc9                Tue 15 Jul 2008 11:24:29 PM EDT
+glew-1.5.0-2.fc9                              Tue 15 Jul 2008 11:24:28 PM EDT
+boost-1.34.1-13.fc9                           Tue 15 Jul 2008 11:24:27 PM EDT
+libicu-3.8.1-7.fc9                            Tue 15 Jul 2008 11:24:25 PM EDT
+plotutils-2.5-5.fc9                           Tue 15 Jul 2008 11:24:23 PM EDT
+libpano13-tools-2.9.12-7.fc9                  Tue 15 Jul 2008 11:24:22 PM EDT
+
+
+2. rpm -qa --qf "%{size} %{name}.%{arch}\n" | sort -n
+   This command displays the size (in bytes) and name.arch of all packages on
+   the system and sorts them by their size from smallest to largest. This is 
+   useful for finding out which packages on your system are taking up a lot of
+   space. Used carefully it can help you clean up unneeded space-consuming
+   packages.
+
+Example:
+$ rpm -qa --qf "%{size} %{name}.%{arch}\n" | sort -n
+22429792 Miro.i386
+22495239 xulrunner.i386
+23553254 anthy.i386
+27332634 fonts-japanese.noarch
+28805881 ghostscript.i386
+29475842 foomatic.i386
+29613520 selinux-policy-targeted.noarch
+32793230 gnumeric.i386
+36362111 gnome-games.i386
+38401148 gimp.i386
+40969098 evolution.i386
+41452165 perl.i386
+42001812 mono-core.i386
+46827945 samba-common.i386
+48317271 libgweather.i386
+49798328 gutenprint-foomatic.i386
+52051447 kernel.i686
+52058430 kernel.i686
+52071231 kernel.i686
+91610549 glibc-common.i386
+
+ 
+3. rpm --showrc
+   This command shows rpm resource configuration state. Very helpful if you
+   are trying to figure out what variable definition you can use in a spec 
+   file. The output from this command is fairly long and complicated, it may
+   benefit you to pipe it to less (rpm --showrc | less).
+
+4. rpm -Va --nofiles --nomd5
+   This command checks your system's rpmdb for all unresolved dependencies, 
+   conflicts or other package-related problems. In the best (and normal)
+   case it should return nothing at all.
+
+
+5. rpm --eval <an rpm macro>
+   This lets you output what rpm would return from the macro or command you 
+   specify. This will take pretty much anything you would normally preface
+   with a % in a spec file.
+   
+Example:
+$ rpm --eval "%{_arch} %{_bindir}"
+i386 /usr/bin
+
+
+
+   
