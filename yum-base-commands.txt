@@ -1,0 +1,62 @@
+Basic Yum Commands and how to use them:
+
+1. yum list [available|installed|extras|updates|obsoletes|all|recent] [pkgspec]
+
+   This command lets you list packages in any repository enabled on your 
+   system or installed. It also lets you list specific types of packages as
+   well as refine your list with a package specification of any of the package's
+   name, arch, version, release, epoch.
+
+   
+   yum list:
+
+   By default 'yum list' without any options will list all packages in all the
+   repositories and all the packages installed on your system.
+   Note: 'yum list all' and 'yum list' give the same output.
+
+   yum list available:
+   Lists all the packages available to be installed in any enabled repository
+   on your system. 
+
+   yum list installed:
+   This is equivalent to rpm -qa. It lists all the packages installed on 
+   the system.
+
+   yum list extras:
+   This command lists any installed package which no longer appears in any
+   of your enabled repositories. Useful for finding packages which linger
+   between upgrades or things installed not from a repo.
+
+   yum list obsoletes:
+   This command lists any obsoleting relationships between any available package
+   and any installed package.
+
+   yum list updates:
+   This command lists any package in an enabled repository which is an update
+   for any installed package.
+
+   yum list recent:
+   This command lists any package added to any enabled repository in the last
+   seven(7) days.
+
+   yum list pkgspec:
+   This command allows you to refine your listing for particular packages.
+   
+   Examples of pkgspecs:
+   yum list zsh
+   yum list joe\*
+   yum list \*.i386
+   yum list dovecot-1.0.15
+
+
+	yum install/remove/update
+	yum check-update (and the return code)
+	yum grouplist
+	yum groupinfo
+	yum info
+	yum list/info pkgname/pkgglob
+	yum search
+	yum shell < -- maybe break this one out into its own little doc
+	yum makecache
+	yum clean
+	yum groupinstall/remove/etc
