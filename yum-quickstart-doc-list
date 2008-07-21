@@ -58,4 +58,9 @@ Quick list of simple-start docs for folks using yum/createrepo/yum-utils/etc
 	- yum-filter-data plugin
 	- yum-verify plugin
 	- yum-changelog
+
+7. managing your machines:
+	- yum-updatesd
+	- yum-cron
+
 	
