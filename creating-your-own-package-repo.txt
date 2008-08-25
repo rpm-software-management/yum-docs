@@ -4,19 +4,28 @@ Sometimes you'll find you need to be able to collect a bunch of rpm packages you
 have together in one place and you want to make them available to your systems
 running yum. It is pretty easy to do.
 
+Overview:
+A package repository used by yum is simply a directory with one or more RPMs
+plus some "meta information" used by yum to be able to easily access
+information (dependencies, file lists, etc.) for the RPMs.  yum can then
+to access this directory over ftp/http or a file URI (including over NFS).
+
 Steps:
-1. collect the packages together in one directory. You can make as many
+1. Collect the packages together in one directory. You can make as many
    subdirs as you want, but there needs to be a top level dir where they all
    live. That's where we're going to form our repository.
 
 2. Yum uses a digest of the information stored in each rpm to do its work. 
-   You have to create this information using the 'createrepo' program. If
+   This information is created using the 'createrepo' program. If
    you don't have createrepo installed you can install it with:
    'yum install createrepo'
-   Once you have it installed you need to run it. It only requires one argument
-   which is the directory in which you would like to generate the repository
-   data. So if the packages dir we made in step 1 is in /srv/my/repo then you 
-   would run:
+   If you are generating your repository on a machine that doesn't use RPMs,
+   you can download createrepo from http://linux.duke.edu/createrepo/download/
+   and build/install it manually.
+   Once you have createrepo installed you need to run it. It only requires one
+   argument which is the directory in which you would like to generate the
+   repository data. So if the packages dir we made in step 1 is in /srv/my/repo
+   then you would run:
      createrepo /srv/my/repo
   
    You should see a lot of things fly by but it should finish without an error.
@@ -44,9 +53,12 @@ Steps:
    like: 
      baseurl = http://servername/my/repo
 
+   More details about client-side repo configuration can be found in
+   the yum.conf man page.
+
 4. Now, everytime you modify, remove or add a new rpm package to /srv/my/repo
-   you need to recreate the repository metadata. You do that the same way you
-   did in step 2.
+   you need to recreate the repository metadata. You do that by running
+   createrepo the same way you did in step 2.
 
 
 Now, let's get into a few more advanced options of createrepo.
